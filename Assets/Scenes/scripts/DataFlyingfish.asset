@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 248b20605d14f054582413ed0dfcfe5a, type: 3}
+  m_Name: DataFlyingfish
+  m_EditorClassIdentifier: Assembly-CSharp::FishData
+  fishName: Flying fish
+  latinName: Exocoetus volitans
+  habitat: ' tropical and subtropical zones of all the world''s oceans. Its range
+    includes the Caribbean Sea and the western part of the Mediterranean Sea'
+  description: To help them hide from predators looking up from the deep ocean, their
+    backs are shiny blue, and their bellies are bright silverTheir tails have an
+    uneven shape, with the bottom part being much longer than the top. They use this
+    tail to kick the water and get extra speed just before taking off. Do you know
+    that Flying fish are amazing ocean creatures known for their ability to jump
+    out of the water and glide through the air. While they can't flap their wings
+    like birds, they can soar above the waves for hundreds of feet to escape hungry
+    predators like tuna and swordfish.
+  conservationStatus: least concern
+  maxSizeCm: 30
+  fishImage: {fileID: 0}
+  modelIndex: 2

@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 248b20605d14f054582413ed0dfcfe5a, type: 3}
+  m_Name: DataBettaSplendens
+  m_EditorClassIdentifier: Assembly-CSharp::FishData
+  fishName: Siamese fighting fish
+  latinName: Betta splendens
+  habitat: shallow, warm, and slow-moving freshwaters of  Southeast Asia, Especiallly
+    Thailand, Vietnam, Kamboja, Malaysia
+  description: The Siamese fighting fish, are famous for their vibrant colors and
+    large, flowing fins. Do you know that the Siamese fighting fish have a special
+    organ called a "labyrinth" that allows them to gulp air from the water's surface,
+    which helps them survive in warm, shallow rice paddies in the wild.
+  conservationStatus: vulnerable
+  maxSizeCm: 8
+  fishImage: {fileID: 0}
+  modelIndex: 1
