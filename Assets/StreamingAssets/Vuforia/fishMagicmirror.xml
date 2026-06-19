@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QCARConfig>
+  <Tracking>
+    <ImageTarget name="flyingfish" size="0.100000 0.051714" />
+    <ImageTarget name="betta-splendens" size="0.100000 0.100000" />
+    <ImageTarget name="japaneseSnapper" size="0.100000 0.056563" />
+  </Tracking>
+</QCARConfig>
