@@ -9,7 +9,7 @@ public class FishInfoUI : MonoBehaviour
 
     [Header("Panel")]
     public GameObject panel;
-    public GameObject closeOverlay;   // ← tambah ini
+    public GameObject closeOverlay;
 
     [Header("Text Fields")]
     public TMP_Text fishNameText;
@@ -24,15 +24,18 @@ public class FishInfoUI : MonoBehaviour
 
     private RectTransform panelRT;
     private Coroutine currentAnim;
+    private FishData currentData;   // ← simpan data aktif untuk refresh bahasa
 
     void Awake() => Instance = this;
+
+    void OnEnable()  => LanguageManager.OnLanguageChanged += RefreshLanguage;
+    void OnDisable() => LanguageManager.OnLanguageChanged -= RefreshLanguage;
 
     void Start()
     {
         panelRT = panel.GetComponent<RectTransform>();
         panel.SetActive(false);
 
-        // Setup CloseOverlay button
         if (closeOverlay != null)
         {
             closeOverlay.SetActive(false);
@@ -42,39 +45,56 @@ public class FishInfoUI : MonoBehaviour
         }
     }
 
-public void ShowInfo(FishData data)
-{
-    if (data == null) return;
+    public void ShowInfo(FishData data)
+    {
+        if (data == null) return;
 
-    fishNameText.text     = data.fishName;
-    latinNameText.text    = $"<i>{data.latinName}</i>";
-    habitatText.text      = $"Habitat: {data.habitat}";
-    descriptionText.text  = data.description;
-    conservationText.text = $"Status: {data.conservationStatus}";
-    sizeText.text         = $"Size maks: {data.maxSizeCm} cm";
+        currentData = data;
+        ApplyData(data);
 
-    FishModelDisplay.Instance?.ShowModel(data.modelIndex);
-    FishModelDisplay.Instance?.displayCamera.gameObject.SetActive(true); // ← ADD
+        FishModelDisplay.Instance?.ShowModel(data.modelIndex);
 
-    if (closeOverlay != null)
-        closeOverlay.SetActive(true);
+        if (closeOverlay != null)
+            closeOverlay.SetActive(true);
 
-    if (currentAnim != null) StopCoroutine(currentAnim);
-    panel.SetActive(true);
-    currentAnim = StartCoroutine(SlideIn());
-}
+        if (currentAnim != null) StopCoroutine(currentAnim);
+        panel.SetActive(true);
+        currentAnim = StartCoroutine(SlideIn());
+    }
 
-public void HideInfo()
-{
-    FishModelDisplay.Instance?.HideModel();
-    FishModelDisplay.Instance?.displayCamera.gameObject.SetActive(false); // ← ADD
+    public void HideInfo()
+    {
+        FishModelDisplay.Instance?.HideModel();
 
-    if (closeOverlay != null)
-        closeOverlay.SetActive(false);
+        if (closeOverlay != null)
+            closeOverlay.SetActive(false);
 
-    if (currentAnim != null) StopCoroutine(currentAnim);
-    currentAnim = StartCoroutine(SlideOut());
-}
+        if (currentAnim != null) StopCoroutine(currentAnim);
+        currentAnim = StartCoroutine(SlideOut());
+    }
+
+    // Dipanggil otomatis saat tombol bahasa ditekan,
+    // hanya update teks kalau panel sedang terbuka
+    void RefreshLanguage()
+    {
+        if (currentData != null && panel.activeSelf)
+            ApplyData(currentData);
+    }
+
+    void ApplyData(FishData data)
+    {
+        bool isEN = LanguageManager.Instance != null
+                 && LanguageManager.Instance.CurrentLanguage == Language.English;
+
+        fishNameText.text     = data.GetName();
+        latinNameText.text    = $"<i>{data.latinName}</i>";
+        habitatText.text      = $"{(isEN ? "Habitat" : "Habitat")}: {data.GetHabitat()}";
+        descriptionText.text  = data.GetDescription();
+        conservationText.text = $"{(isEN ? "Status" : "Status")}: {data.GetStatus()}";
+        sizeText.text         = isEN
+            ? $"Max size: {data.maxSizeCm} cm"
+            : $"Ukuran maks: {data.maxSizeCm} cm";
+    }
 
     IEnumerator SlideIn()
     {
